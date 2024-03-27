@@ -1,6 +1,5 @@
 "use client";
-// import { TItems, TItemStatus } from "@/pages/todo";
-// import { $ } from "@/utils";
+
 import { useEffect, useState } from "react";
 import {
   DragDropContext,
@@ -21,30 +20,14 @@ export type TItems = {
   [key in TItemStatus]: TItem[];
 };
 
-export default function TodoLibraryExample({
-  items,
-  setItems,
-}: {
-  items: TItems;
-  setItems: (items: TItems) => void;
-}) {
-  // const onDragEnd = ({ source, destination }: DropResult) => {
-  //   if (!destination) return;
-
-  //   const scourceKey = source.droppableId as TItemStatus;
-  //   const destinationKey = destination.droppableId as TItemStatus;
-
-  //   const _items = JSON.parse(JSON.stringify(items)) as typeof items;
-  //   const [targetItem] = _items[scourceKey].splice(source.index, 1);
-  //   _items[destinationKey].splice(destination.index, 0, targetItem);
-  //   setItems(_items);3333
-  // };
+export default function TodoLibraryExample() {
   const dummyArr = [
     { id: "01", team: "1", title: "김미희" },
     { id: "02", team: "1", title: "김래준" },
     { id: "03", team: "1", title: "김대영" },
     { id: "04", team: "2", title: "김은채" },
   ];
+
   const [people, setPeople] = useState(dummyArr);
 
   const handleDragDrop = (results: DropResult) => {
