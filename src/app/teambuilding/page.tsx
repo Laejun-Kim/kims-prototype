@@ -41,7 +41,7 @@ export default function TodoLibraryExample() {
     )
       return;
     //집어 올렸다가 같은 곳에 내려놔도 아무것도 안하겠단 거고
-    if (type === "group") {
+    if (source.droppableId === destination.droppableId) {
       const reorderedPeople = [...people];
       const sourceIndex = source.index;
       const destinationIndex = destination.index;
@@ -50,13 +50,21 @@ export default function TodoLibraryExample() {
 
       return setPeople(reorderedPeople);
     }
-    const teamSourceIndex = people.findIndex(
-      (person) => person.id === source.droppableId
-    );
-    const teamDestinationIndex = people.findIndex(
-      (person) => person.id === destination.droppableId
-    );
-    const newSourceItems = [...people[teamSourceIndex].items];
+    //여기까지가 하나의 조에서 자리 바꾸는 로직
+
+    // if (source.droppableId !== destination.droppableId) {
+    //   setPeople();
+    // }
+
+    // const teamSourceIndex = people.findIndex(
+    //   (person) => person.id === source.droppableId
+    // );
+
+    // const teamDestinationIndex = people.findIndex(
+    //   (person) => person.id === destination.droppableId
+    // );
+
+    // const newSourceItems = [...people[teamSourceIndex].items];
   };
 
   // --- requestAnimationFrame 초기화
@@ -95,23 +103,25 @@ export default function TodoLibraryExample() {
                     className="bg-gray-500"
                   >
                     <p>1조</p>
-                    {people.map((person, idx) => (
-                      <Draggable
-                        key={person.id}
-                        draggableId={person.id}
-                        index={idx}
-                      >
-                        {(provided) => (
-                          <div
-                            {...provided.dragHandleProps}
-                            {...provided.draggableProps}
-                            ref={provided.innerRef}
-                          >
-                            {person.title}
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
+                    {people
+                      .filter((item) => item.team === "1")
+                      .map((person, idx) => (
+                        <Draggable
+                          key={person.id}
+                          draggableId={person.id}
+                          index={idx}
+                        >
+                          {(provided) => (
+                            <div
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                              ref={provided.innerRef}
+                            >
+                              {person.title}
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
                     {provided.placeholder}
                     {/* 이게 있어야 droppable 크기가 고정된다 */}
                   </div>
@@ -127,6 +137,26 @@ export default function TodoLibraryExample() {
                     className="bg-gray-500"
                   >
                     <p>2조</p>
+                    {people
+                      .filter((item) => item.team === "2")
+                      .map((person, idx) => (
+                        <Draggable
+                          key={person.id}
+                          draggableId={person.id}
+                          index={idx}
+                        >
+                          {(provided) => (
+                            <div
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                              ref={provided.innerRef}
+                            >
+                              {person.title}
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                    {provided.placeholder}
                   </div>
                 );
               }}
