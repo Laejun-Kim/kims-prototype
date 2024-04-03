@@ -18,6 +18,60 @@ const CalendarPage = () => {
 
   const dayList = ['2024-03-26', '2024-03-27'];
 
+  const clickDays = () => {
+    Swal.fire({
+      title: 'sample',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: '일정 확인하기',
+      denyButtonText: `일정 추가하기`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success');
+      } else if (result.isDenied) {
+        Swal.fire({
+          title: moment(date).format('YYYY-MM-DD'),
+          html: `    <label for="starttime">시작시간</label>
+                        <input type="datetime-local" id="starttime" class="swal2-input" placeholder="Password">
+                        <br/>
+                        <label for="endtime">끝나는 시간</label>
+                        <input type="datetime-local" id="endtime" class="swal2-input" placeholder="Password">
+                              <input type="text" id="content" class="swal2-input" placeholder="content">
+                            `,
+          confirmButtonText: '일정 저장',
+          showCancelButton: true,
+          cancelButtonText: '취소',
+          focusConfirm: false,
+          didOpen: () => {
+            const popup = Swal.getPopup()!;
+            contentInput = popup.querySelector('#content') as HTMLInputElement;
+            starttimeInput = popup.querySelector(
+              '#starttime'
+            ) as HTMLInputElement;
+            endtimeInput = popup.querySelector('#endtime') as HTMLInputElement;
+
+            //   contentInput.onkeyup = (event) =>
+            //     event.key === "Enter" && Swal.clickConfirm();
+            //   timeInput.onkeyup = (event) =>
+            //     event.key === "Enter" && Swal.clickConfirm();
+          },
+          preConfirm: () => {
+            const content = contentInput.value;
+            const starttime = starttimeInput.value;
+            const endtime = endtimeInput.value;
+
+            return { content, starttime, endtime };
+          },
+        }).then((result) => {
+          console.log('리설트 벨류', result.value);
+          setSchedule((prev) => [...prev, result.value]);
+          console.log('스케줄', schedules);
+        });
+      }
+    });
+  };
+
   const addContent = ({ date }: any) => {
     // 해당 날짜(하루)에 추가할 컨텐츠의 배열
     const contents = [];
@@ -26,12 +80,25 @@ const CalendarPage = () => {
     if (dayList.find((day) => day === moment(date).format('YYYY-MM-DD'))) {
       contents.push(
         <>
-          <div className='w-[20px] h-[20px] bg-slate-300 rounded-full'>*</div>
+          <div className='w-[20px] h-[20px] bg-yellow-300 rounded-full'>*</div>
         </>
       );
     }
-    console.log(contents);
-    return <div>{contents}</div>; // 각 날짜마다 해당 요소가 들어감
+
+    return (
+      <>
+        <div>{contents}</div>
+        <span
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log('hi');
+          }}
+          className='days-btn'
+        >
+          +
+        </span>
+      </>
+    ); // 각 날짜마다 해당 요소가 들어감
   };
   return (
     <>
@@ -43,63 +110,7 @@ const CalendarPage = () => {
         onChange={onChange}
         locale='ko'
         showNeighboringMonth={false}
-        onClickDay={(date) => {
-          Swal.fire({
-            title: 'sample',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: '일정 확인하기',
-            denyButtonText: `일정 추가하기`,
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              Swal.fire('Saved!', '', 'success');
-            } else if (result.isDenied) {
-              Swal.fire({
-                title: moment(date).format('YYYY-MM-DD'),
-                html: `    <label for="starttime">시작시간</label>
-                        <input type="datetime-local" id="starttime" class="swal2-input" placeholder="Password">
-                        <br/>
-                        <label for="endtime">끝나는 시간</label>
-                        <input type="datetime-local" id="endtime" class="swal2-input" placeholder="Password">
-                              <input type="text" id="content" class="swal2-input" placeholder="content">
-                            `,
-                confirmButtonText: '일정 저장',
-                showCancelButton: true,
-                cancelButtonText: '취소',
-                focusConfirm: false,
-                didOpen: () => {
-                  const popup = Swal.getPopup()!;
-                  contentInput = popup.querySelector(
-                    '#content'
-                  ) as HTMLInputElement;
-                  starttimeInput = popup.querySelector(
-                    '#starttime'
-                  ) as HTMLInputElement;
-                  endtimeInput = popup.querySelector(
-                    '#endtime'
-                  ) as HTMLInputElement;
-
-                  //   contentInput.onkeyup = (event) =>
-                  //     event.key === "Enter" && Swal.clickConfirm();
-                  //   timeInput.onkeyup = (event) =>
-                  //     event.key === "Enter" && Swal.clickConfirm();
-                },
-                preConfirm: () => {
-                  const content = contentInput.value;
-                  const starttime = starttimeInput.value;
-                  const endtime = endtimeInput.value;
-
-                  return { content, starttime, endtime };
-                },
-              }).then((result) => {
-                console.log('리설트 벨류', result.value);
-                setSchedule((prev) => [...prev, result.value]);
-                console.log('스케줄', schedules);
-              });
-            }
-          });
-        }}
+        onClickDay={clickDays}
       />
       <div>{moment(date).format('Y년-M월-D일')}</div>
       <div>
