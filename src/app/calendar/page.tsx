@@ -25,21 +25,7 @@ const CalendarPage = () => {
 
   // const dayList = ["2024-03-26", "2024-03-27"];
 
-  const clickDays = () => {
-    Swal.fire({
-      title: "sample",
-      // showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "일정 확인하기",
-      // denyButtonText: `일정 추가하기`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
-      } else if (result.isDenied) {
-      }
-    });
-  };
+  const clickDays = () => {};
 
   const addContent = ({ date }: any) => {
     // 해당 날짜(하루)에 추가할 컨텐츠의 배열
@@ -117,19 +103,20 @@ const CalendarPage = () => {
         onChange={onChange}
         locale="ko"
         showNeighboringMonth={false}
-        onClickDay={clickDays}
+        // onClickDay={clickDays}
       />
       <div>{moment(date).format("Y년-M월-D일")}</div>
       <div>
         {schedules?.map((schedule) => {
           console.log("여기", schedule);
           console.log(date);
-
+          if (moment(date).format("YYYY-MM-DD") !== schedule.scheduleDate)
+            return;
           return (
             <>
               {schedule ? (
                 <>
-                  <h1>일정 날짜: {schedule.scheduleDate}</h1>
+                  {/* <h1>일정 날짜: {schedule.scheduleDate}</h1> */}
                   <div className="flex border-black border-2 w-[800px]">
                     <div className="w-[4.17%] bg-white h-[20px]">0</div>
                     <div className="w-[4.17%] bg-white h-[20px]">1</div>
