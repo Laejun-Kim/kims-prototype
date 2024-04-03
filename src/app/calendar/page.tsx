@@ -25,8 +25,6 @@ const CalendarPage = () => {
 
   // const dayList = ["2024-03-26", "2024-03-27"];
 
-  const clickDays = () => {};
-
   const addContent = ({ date }: any) => {
     // 해당 날짜(하루)에 추가할 컨텐츠의 배열
     const contents = [];
