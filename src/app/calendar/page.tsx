@@ -77,12 +77,27 @@ const CalendarPage = () => {
                 const endtime = endtimeInput.value;
                 const scheduleDate = moment(date).format("YYYY-MM-DD");
 
+                if (starttime > endtime) {
+                  Swal.fire("시간을 제대로 입력하세요");
+
+                  return;
+                }
+
                 return { content, starttime, endtime, scheduleDate };
               },
             }).then((result) => {
+              console.log("리절트", result);
+              if (result.isDismissed === true) return;
+              // if (result.value === true) {
+              //   alert("시간을 제대로 입력하세요!");
+              //   return;
+              // }
               console.log("리설트 벨류", result.value);
-              setSchedule((prev) => [...prev, result.value]);
-              setDayList((prev) => [...prev, result.value.scheduleDate]);
+              if (result.value !== true) {
+                setSchedule((prev) => [...prev, result.value]);
+
+                setDayList((prev) => [...prev, result.value.scheduleDate]);
+              }
               console.log("스케줄", schedules);
             });
           }}
