@@ -61,6 +61,7 @@ export default function TodoLibraryExample() {
         }
         return item;
       });
+
       console.log(people);
       return setPeople(reorderedPeople);
     }
