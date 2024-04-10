@@ -14,6 +14,9 @@ export default function Home() {
       <br />
 
       <Link href="/login">로그인페이지</Link>
+      <br />
+
+      <Link href="/register">회원가입 페이지</Link>
     </main>
   );
 }
