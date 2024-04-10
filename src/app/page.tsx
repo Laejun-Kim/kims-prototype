@@ -17,6 +17,9 @@ export default function Home() {
       <br />
 
       <Link href="/register">회원가입 페이지</Link>
+      <br />
+
+      <Link href="/tempmain">임시 메인 페이지</Link>
     </main>
   );
 }
