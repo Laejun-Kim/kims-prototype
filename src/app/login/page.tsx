@@ -32,6 +32,7 @@ const LoginPage = () => {
           >
             <Input
               type="email"
+              value={id}
               placeholder="이메일을 입력하세요"
               onChange={(e) => {
                 setId(e.target.value);
@@ -39,6 +40,7 @@ const LoginPage = () => {
             />
             <Input
               type="password"
+              value={pw}
               placeholder="비밀번호를 입력하세요"
               onChange={(e) => {
                 setPw(e.target.value);
