@@ -11,6 +11,9 @@ export default function Home() {
       <br />
 
       <Link href="/teambuilding">팀빌딩</Link>
+      <br />
+
+      <Link href="/login">로그인페이지</Link>
     </main>
   );
 }
