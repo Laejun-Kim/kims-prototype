@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const LoginPage = () => {
   return (
     <div className="이거야이거 flex h-[100vh] items-center ">
       <div className="flex items-center">
+        <Tabs />
         <div>
           <Image src={nbcicon} alt="nbc icon" width={800} height={400} />
         </div>
