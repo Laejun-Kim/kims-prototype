@@ -38,7 +38,7 @@ const page = () => {
   const minute = 28;
 
   // 함수 호출하여 백분율 계산
-  const percentage = calculatePercentageInDay(10, 20, 15, 45);
+  const percentage = calculatePercentageInDay(3, 20, 15, 45);
   console.log(percentage);
   const [start, end] = percentage;
   //   console.log(
@@ -55,14 +55,20 @@ const page = () => {
   const coloredDiv = createIntegerArray(start, end);
 
   return (
-    <section className="flex">
+    <section className="flex w-[800px] h-[30px] ">
       {totalArray.map((item) => {
         return coloredDiv.includes(item) ? (
-          <div className={`${item + ""} p-2 bg-blue-400`} key={item}>
+          <div
+            className={`${item + ""} w-full p-1 text-xs bg-blue-400`}
+            key={item}
+          >
             {item}
           </div>
         ) : (
-          <div className={`${item + ""} p-2 bg-slate-400`} key={item}>
+          <div
+            className={`${item + ""} w-full p-1 text-xs bg-slate-400`}
+            key={item}
+          >
             {item}
           </div>
         );
